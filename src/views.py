@@ -30,6 +30,8 @@ app.jinja_env = JINJA_ENV
 @app.route('/')
 @app.route('/index', methods=['GET'])
 def index():
+    """ Base route that should take the user to the portfolio home page.
+    """
     return render_template("portfolio.html", title="mounds")
 
 
