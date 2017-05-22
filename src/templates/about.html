@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block navigation_big %}
+<nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
+    <a class="mdl-navigation__link" href="/portfolio">Portfolio</a>
+    <a class="mdl-navigation__link" href="/blog">Blog</a>
+    <a class="mdl-navigation__link is-active" href="/about">About</a>
+    <a class="mdl-navigation__link" href="/contact">Contact</a>
+</nav>
+{% endblock %}
+{% block navigation_small %}
+<nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
+    <a class="mdl-navigation__link" href="/portfolio">Portfolio</a>
+    <a class="mdl-navigation__link" href="/blog">Blog</a>
+    <a class="mdl-navigation__link is-active" href="/about">About</a>
+    <a class="mdl-navigation__link" href="/contact">Contact</a>
+</nav>
+{% endblock %}
+{% block content %}
+<div class="portfolio-content-container">
+    {{ content|markdown|safe }}
+</div>
+{% endblock %}

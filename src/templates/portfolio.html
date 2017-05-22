@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block navigation_big %}
+<nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
+    <a class="mdl-navigation__link is-active" href="/portfolio">Portfolio</a>
+    <a class="mdl-navigation__link" href="/blog">Blog</a>
+    <a class="mdl-navigation__link" href="/about">About</a>
+    <a class="mdl-navigation__link" href="/contact">Contact</a>
+</nav>
+{% endblock %}
+{% block navigation_small %}
+<nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
+    <a class="mdl-navigation__link is-active" href="/portfolio">Portfolio</a>
+    <a class="mdl-navigation__link" href="/blog">Blog</a>
+    <a class="mdl-navigation__link" href="/about">About</a>
+    <a class="mdl-navigation__link" href="/contact">Contact</a>
+</nav>
+{% endblock %}
+{% block content %}
+<div class="portfolio-content-container">
+    <div class="mdl-grid portfolio-max-width">
+        {% for card in cards %}
+            <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
+                <div class="mdl-card__media">
+                    <img class="article-image" src={{ card.image }} border="0" alt="">
+                </div>
+                <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text">{{ card.title }}</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                    {{ card.support_text }}
+                </div>
+                <div class="mdl-card__actions mdl-card--border">
+                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href={{ card.hLink }}>{{ card.hText }}</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

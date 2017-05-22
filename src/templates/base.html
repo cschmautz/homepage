@@ -1,0 +1,51 @@
+<html>
+
+<head>
+    <title>{{ title }}</title>
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0"> -->
+    <!-- use of initial-scale means width param is treated as min-width -->
+    <meta name="viewport" content="width=450, initial-scale=1.0" >
+
+    <script src="/static/mdl/material.min.js"></script>
+    <link rel="stylesheet" href="/static/mdl/material.red-cyan.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+
+</head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header mdl-layout__header--waterfall portfolio-header">
+            <div class="mdl-layout__header-row portfolio-logo-row">
+                <span class="mdl-layout__title">
+                    <div class="portfolio-logo">
+                    </div>
+                    <span class="mdl-layout__title">Computer experimenter since Windows 95</span>
+                </span>
+            </div>
+            <div class="mdl-layout__header-row portfolio-navigation-row mdl-layout--large-screen-only">
+                {% block navigation_big %}{% endblock %}
+            </div>
+        </header>
+        <div class="mdl-layout__drawer mdl-layout--small-screen-only">
+            {% block navigation_small %}{% endblock %}
+        </div>
+        <div class="mdl-layout__drawer-button mdl-layout--small-screen-only">
+            <i class="material-icons"><img src="/static/images/site/ic_list_black_24px.svg" style="width:70%; height:70%"></i>
+        </div>
+        <main class="mdl-layout__content">
+            <div class="mdl-grid portfolio-max-width">
+                {% block content %}{% endblock %}
+            <footer class="mdl-mini-footer">
+                <div class="mdl-mini-footer__left-section">
+                    <div class="mdl-logo">{{ copyrigt_info }}</div>
+                </div>
+                <div class="mdl-mini-footer__right-section">
+                    <ul class="mdl-mini-footer__link-list">
+                        <li><a href="https://getmdl.io/index.html">UI by Material Design Lite</a></li>
+                    </ul>
+                </div>
+            </footer>
+        </main>
+    </div>
+</body>
+
+</html>
