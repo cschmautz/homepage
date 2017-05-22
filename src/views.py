@@ -104,22 +104,6 @@ def blog():
 
         cards = sorted(cards, key=itemgetter('id'), reverse=True)
 
-    # cards_test = []
-    # cards_test.append({'image': '', 'title': 'test1_title', 'support_text': 'test1_support',
-    #                    'h_link': 'http://google.com', 'h_text': 'test1_hlink'})
-    # cards_test.append({'image': '', 'title': 'test2_title', 'support_text': 'test2_support',
-    #                    'h_link': '', 'h_text': 'test2_hlink'})
-    # cards_test.append({'image': '', 'title': 'test3_title', 'support_text': 'test3_support',
-    #                    'h_link': '', 'h_text': 'test3_hlink'})
-    # cards_test.append({'image': '', 'title': 'test4_title', 'support_text': 'test4_support',
-    #                    'h_link': '', 'h_text': 'test4_hlink'})
-    # cards_test.append({'image': '', 'title': 'test5_title', 'support_text': 'test5_support',
-    #                    'h_link': '', 'h_text': 'test5_hlink'})
-    # cards_test.append({'image': '', 'title': 'test6_title', 'support_text': 'test6_support',
-    #                    'h_link': '', 'h_text': 'test6_hlink'})
-    # cards_test.append({'image': '', 'title': 'test7_title', 'support_text': 'test7_support',
-    #                    'h_link': '', 'h_text': 'test7_hlink'})
-
     return render_template("blog.html", title="Test", cards=cards)
 
 
@@ -150,7 +134,6 @@ def blog_post(post):
 
     if(post_data):
         post_data = post_data[0]
-        # post_data['content'] = markdown.markdown(post_data['content'])
     else:
         post_data = {'content': 'No blog entry found for that post id!',
                      'title': 'Content not found'}
