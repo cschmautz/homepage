@@ -29,7 +29,12 @@ def markd_jinja(text, *args, **kwargs):
 JINJA_ENV.filters['markdown'] = markd_jinja
 application.jinja_env = JINJA_ENV
 
-@application.route('/')
+@application.route('/', methods=['GET'])
+def base():
+    """ Base route that should take the user to the portfolio home page.
+    """
+    return render_template("portfolio.html", title="mounds")
+
 @application.route('/index', methods=['GET'])
 def index():
     """ Base route that should take the user to the portfolio home page.
