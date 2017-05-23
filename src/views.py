@@ -1,5 +1,7 @@
-# This is where the routes are defined. It may be split into a package of its
-#   own (yourapp/views/) with related views grouped together into modules.
+""" views.py
+
+    Module to manage the different API endpoints for my homepage applicationlication.
+"""
 
 import os
 from operator import itemgetter
@@ -9,10 +11,10 @@ import markdown
 from markdown import markdown, Markdown
 import jinja2
 
-from src import app
+from src import application
 from src.utils import extos
 
-MD = Markdown(app, extensions=['fenced_code'])
+MD = Markdown(application, extensions=['fenced_code'])
 TOP_LEVEL_DIR = (os.path.abspath(__file__) + '../')
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
 
@@ -25,15 +27,17 @@ def markd_jinja(text, *args, **kwargs):
     return markdown(text, *args, **kwargs)
 
 JINJA_ENV.filters['markdown'] = markd_jinja
-app.jinja_env = JINJA_ENV
+application.jinja_env = JINJA_ENV
 
-@app.route('/')
-@app.route('/index', methods=['GET'])
+@application.route('/')
+@application.route('/index', methods=['GET'])
 def index():
+    """ Base route that should take the user to the portfolio home page.
+    """
     return render_template("portfolio.html", title="mounds")
 
 
-@app.route('/portfolio', methods=['GET'])
+@application.route('/portfolio', methods=['GET'])
 def portfolio():
     """ Main route to serve up the 'portfolio' section of the site.
     """
@@ -51,7 +55,7 @@ def portfolio():
     return render_template("portfolio.html", title="mounds", cards=cards)
 
 
-@app.route('/portfolio/posts', methods=['GET'])
+@application.route('/portfolio/posts', methods=['GET'])
 def portfolio_posts():
     """ Main route to serve up the 'portfolio' section of the site.
     """
@@ -64,7 +68,7 @@ def portfolio_posts():
     return render_template("portfolio_post.html", title="test", content=str(portfolio_data))
 
 
-@app.route('/portfolio/posts/<int:post>', methods=['GET'])
+@application.route('/portfolio/posts/<int:post>', methods=['GET'])
 def portfolio_post(post=None):
     """ Used to provide the specific pages for a portfolio entry. This will
         have posts in line with the posts in the blog area, however, they will
@@ -89,7 +93,7 @@ def portfolio_post(post=None):
     return render_template("portfolio_post.html", title=post_data['title'], content=post_data['content'])
 
 
-@app.route('/blog', methods=['GET'])
+@application.route('/blog', methods=['GET'])
 def blog():
     """ Endpoint to return the blog dashboard with the most recent posts.
     """
@@ -107,7 +111,7 @@ def blog():
     return render_template("blog.html", title="Test", cards=cards)
 
 
-@app.route('/blog/posts', methods=['GET'])
+@application.route('/blog/posts', methods=['GET'])
 def blog_posts():
     """ Endpoint to serve up all the posts which reside on the server, or insert
         a new post if the right secret is given to the endpoint
@@ -122,7 +126,7 @@ def blog_posts():
     return render_template("blog_post.html", title="Blog posts", content=str(posts_data))
 
 
-@app.route('/blog/posts/<int:post>', methods=['GET'])
+@application.route('/blog/posts/<int:post>', methods=['GET'])
 def blog_post(post):
     """ Endpoint that serves up a specific post which corresponds to the post
         'id' attribute. Similar to the portfolio post endpoint.
@@ -140,7 +144,7 @@ def blog_post(post):
 
     return render_template("blog_post.html", title=post_data['title'], content=post_data['content'])
 
-@app.route('/about', methods=['GET'])
+@application.route('/about', methods=['GET'])
 def about():
     """ Endpoint for retrieving 'about' section infomation.
     """
@@ -149,7 +153,7 @@ def about():
 
     return render_template("about.html", title="About Chris Schmautz", content=about_data)
 
-@app.route('/contact', methods=['GET'])
+@application.route('/contact', methods=['GET'])
 def contact():
     """ Endpoint for retrieving 'contact' section infomation.
     """
