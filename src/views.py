@@ -40,7 +40,7 @@ def base():
 def index():
     """ Base route that should take the user to the portfolio home page.
     """
-    return render_template("portfolio.html", title="mounds")
+    return render_template("portfolio.html", title="mounds makes")
 
 
 @application.route('/portfolio', methods=['GET'])
@@ -58,7 +58,7 @@ def portfolio():
 
         cards = sorted(cards, key=itemgetter('id'), reverse=True)
 
-    return render_template("portfolio.html", title="mounds", cards=cards)
+    return render_template("portfolio.html", title="mounds makes", cards=cards)
 
 
 @application.route('/portfolio/posts', methods=['GET'])
@@ -111,7 +111,7 @@ def blog():
 
         cards = sorted(cards, key=itemgetter('id'), reverse=True)
 
-    return render_template("blog.html", title="Test", cards=cards)
+    return render_template("blog.html", title="mounds blogs", cards=cards)
 
 
 @application.route('/blog/posts', methods=['GET'])
@@ -151,7 +151,7 @@ def about():
     data = extos.load_json_file(os.path.abspath('instance/data.json'))
     about_data = data['about']
 
-    return render_template("about.html", title="About Chris Schmautz", content=about_data)
+    return render_template("about.html", title="Who is Chris Schmautz (mounds)", content=about_data)
 
 @application.route('/contact', methods=['GET'])
 def contact():
@@ -160,4 +160,4 @@ def contact():
     data = extos.load_json_file(os.path.abspath('instance/data.json'))
     contact_data = data['contact']
 
-    return render_template("contact.html", title="How to get in touch", content=contact_data)
+    return render_template("contact.html", title="Talk to the mounds", content=contact_data)
