@@ -5,6 +5,7 @@
 
 import os
 from operator import itemgetter
+import json
 
 from flask import render_template
 import markdown
@@ -29,7 +30,12 @@ def markd_jinja(text, *args, **kwargs):
 JINJA_ENV.filters['markdown'] = markd_jinja
 application.jinja_env = JINJA_ENV
 
-@application.route('/')
+@application.route('/', methods=['GET'])
+def base():
+    """ Base route that should take the user to the portfolio home page.
+    """
+    return render_template("portfolio.html", title="mounds")
+
 @application.route('/index', methods=['GET'])
 def index():
     """ Base route that should take the user to the portfolio home page.
@@ -62,10 +68,7 @@ def portfolio_posts():
     data = extos.load_json_file(os.path.abspath('instance/data.json'))
     portfolio_data = [x for x in data['posts'] if x['type'] == 'portfolio']
 
-    if(not portfolio_data):
-        portfolio_data = "No data found for portfolio entries!"
-
-    return render_template("portfolio_post.html", title="test", content=str(portfolio_data))
+    return json.dumps(portfolio_data)
 
 
 @application.route('/portfolio/posts/<int:post>', methods=['GET'])
@@ -119,11 +122,8 @@ def blog_posts():
     data = extos.load_json_file(os.path.abspath('instance/data.json'))
     posts_data = [x for x in data['posts']
                   if x['type'] == 'blog']
-    
-    if(not posts_data):
-        posts_data = "No blog posts data found!"
 
-    return render_template("blog_post.html", title="Blog posts", content=str(posts_data))
+    return json.dumps(posts_data)
 
 
 @application.route('/blog/posts/<int:post>', methods=['GET'])
