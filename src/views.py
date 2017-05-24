@@ -34,13 +34,35 @@ application.jinja_env = JINJA_ENV
 def base():
     """ Base route that should take the user to the portfolio home page.
     """
-    return render_template("portfolio.html", title="mounds")
+    data = extos.load_json_file(os.path.abspath('instance/data.json'))
+    cards = [x for x in data['posts'] if x['type'] == 'portfolio']
+
+    if(not cards):
+        cards = []
+    else:
+        for entry in cards:
+            entry['postDate'] = entry['postDate'][:10]
+
+        cards = sorted(cards, key=itemgetter('id'), reverse=True)
+
+    return render_template("portfolio.html", title="mounds makes", cards=cards)
 
 @application.route('/index', methods=['GET'])
 def index():
     """ Base route that should take the user to the portfolio home page.
     """
-    return render_template("portfolio.html", title="mounds makes")
+    data = extos.load_json_file(os.path.abspath('instance/data.json'))
+    cards = [x for x in data['posts'] if x['type'] == 'portfolio']
+
+    if(not cards):
+        cards = []
+    else:
+        for entry in cards:
+            entry['postDate'] = entry['postDate'][:10]
+
+        cards = sorted(cards, key=itemgetter('id'), reverse=True)
+
+    return render_template("portfolio.html", title="mounds makes", cards=cards)
 
 
 @application.route('/portfolio', methods=['GET'])
