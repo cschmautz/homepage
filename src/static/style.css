@@ -2,13 +2,13 @@ p {
     padding: 10px;
 }
 
-.portfolio-header {
+.homepage-header {
   position: relative;
   background-image: url(images/site/keyboard-bg.jpg);
   background-size: 1200px;
 }
 
-.portfolio-header .mdl-layout__header-row {
+.homepage-header .mdl-layout__header-row {
   padding: 0;
   -webkit-justify-content: center;
       -ms-flex-pack: center;
@@ -31,15 +31,15 @@ p {
   display: none;
 }
 
-.portfolio-logo-row {
+.homepage-logo-row {
   min-height: 200px;
 }
 
-.is-compact .portfolio-logo-row {
+.is-compact .homepage-logo-row {
   min-height: auto;
 }
 
-.portfolio-logo {
+.homepage-logo {
   background: url(images/site/cb-ed-smiley-2.jpg) 50% no-repeat;
   background-size: cover;
   border: 2px solid #000000;
@@ -48,41 +48,41 @@ p {
   margin: auto auto 10px;
 }
 
-.is-compact .portfolio-logo {
+.is-compact .homepage-logo {
   height: 50px;
   width: 50px;
   margin-top: 7px;
 }
 
-.portfolio-navigation-row {
+.homepage-navigation-row {
   background-color: rgba(0, 0, 0, 0.9);
   text-transform: uppercase;
   height: 45px;
 }
 
-.portfolio-navigation-row  .mdl-navigation {
+.homepage-navigation-row  .mdl-navigation {
   text-align: center;
   max-width: 900px;
   width: 100%;
 }
 
-.portfolio-navigation-row .mdl-navigation__link {
+.homepage-navigation-row .mdl-navigation__link {
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
   line-height: 42px;
 }
 
-.portfolio-header .mdl-layout__drawer-button {
+.homepage-header .mdl-layout__drawer-button {
     background-color: rgba(95, 95, 95, 0.72);
 }
 
-.portfolio-navigation-row .is-active {
+.homepage-navigation-row .is-active {
   position: relative;
   font-weight: bold;
 }
 
-.portfolio-navigation-row .is-active:after {
+.homepage-navigation-row .is-active:after {
   content: "";
   width: 70%;
   height: 2px;
@@ -94,7 +94,7 @@ p {
   left: 15%;
 }
 
-.portfolio-share-btn {
+.homepage-share-btn {
   position: relative;
   float: right;
   top: -4px;
@@ -104,34 +104,34 @@ p {
     width: 100%;
 }
 
-.portfolio-content-container {
+.homepage-content-container {
     border: 2px solid rgba(0, 0, 0, 0.08);
     width: 100%;
     margin-top: 15px;
     margin-bottom: 15px;
 }
 
-.portfolio-card .mdl-card__title {
+.homepage-card .mdl-card__title {
   padding-bottom: 0;
 }
 
-.portfolio-blog-card-full-bg {
+.homepage-blog-card-full-bg {
   background: url(images/example-blog03.jpg) center / cover;
 }
 
-.portfolio-blog-card-event-bg {
+.homepage-blog-card-event-bg {
   background: url(images/example-blog05.jpg) center / cover;
 }
 
-.portfolio-blog-card-strip-bg {
+.homepage-blog-card-strip-bg {
   background: url(images/example-blog06.jpg) center / cover;
 }
 
-.portfolio-blog-card-compact .mdl-card__title {
+.homepage-blog-card-compact .mdl-card__title {
   padding-bottom: 0;
 }
 
-.portfolio-blog-card-bg > .mdl-card__actions {
+.homepage-blog-card-bg > .mdl-card__actions {
   height: 52px;
   padding: 16px;
   background: rgba(0, 0, 0, 0.2);
@@ -142,12 +142,12 @@ img.article-image {
   height: auto;
 }
 
-.portfolio-max-width {
+.homepage-max-width {
   max-width: 900px;
   margin: auto;
 }
 
-.portfolio-copy {
+.homepage-copy {
   max-width: 700px;
 }
 
@@ -177,11 +177,11 @@ img.article-image {
     display: flex;
 }
 
-.portfolio-contact .mdl-textfield {
+.homepage-contact .mdl-textfield {
   width: 100%;
 }
 
-.portfolio-contact form {
+.homepage-contact form {
   max-width: 550px;
   margin: auto;
 }
