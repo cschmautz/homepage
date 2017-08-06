@@ -9,6 +9,7 @@ import io
 import json
 import logging
 
+
 def load_json_file(json_file):
     """
     JSON file loader.

@@ -9,19 +9,20 @@
     <script src="/static/mdl/material.min.js"></script>
     <link rel="stylesheet" href="/static/mdl/material.red-cyan.min.css">
     <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/mdl/mdl-icons.css">
 
 </head>
 <body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-        <header class="mdl-layout__header mdl-layout__header--waterfall portfolio-header">
-            <div class="mdl-layout__header-row portfolio-logo-row">
+        <header class="mdl-layout__header mdl-layout__header--waterfall homepage-header">
+            <div class="mdl-layout__header-row homepage-logo-row">
                 <span class="mdl-layout__title">
-                    <div class="portfolio-logo">
+                    <div class="homepage-logo">
                     </div>
                     <span class="mdl-layout__title">Computer experimenter since Windows 95</span>
                 </span>
             </div>
-            <div class="mdl-layout__header-row portfolio-navigation-row mdl-layout--large-screen-only">
+            <div class="mdl-layout__header-row homepage-navigation-row mdl-layout--large-screen-only">
                 {% block navigation_big %}{% endblock %}
             </div>
         </header>
@@ -32,7 +33,7 @@
             <i class="material-icons"><img src="/static/images/site/ic_list_black_24px.svg" style="width:70%; height:70%"></i>
         </div>
         <main class="mdl-layout__content">
-            <div class="mdl-grid portfolio-max-width">
+            <div class="mdl-grid homepage-max-width">
                 {% block content %}{% endblock %}
             <footer class="mdl-mini-footer">
                 <div class="mdl-mini-footer__left-section">
@@ -40,6 +41,7 @@
                 </div>
                 <div class="mdl-mini-footer__right-section">
                     <ul class="mdl-mini-footer__link-list">
+                        <li><a href="https://github.com/cschmautz">Find me on GitHub</a></li>
                         <li><a href="https://getmdl.io/index.html">UI by Material Design Lite</a></li>
                     </ul>
                 </div>

@@ -4,15 +4,15 @@ p {
 
 .homepage-header {
   position: relative;
-  background-image: url(images/site/keyboard-bg.jpg);
+  background-image: url('images/site/keyboard-bg.jpg');
   background-size: 1200px;
 }
 
 .homepage-header .mdl-layout__header-row {
   padding: 0;
   -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 .mdl-layout__title {
@@ -40,7 +40,7 @@ p {
 }
 
 .homepage-logo {
-  background: url(images/site/cb-ed-smiley-2.jpg) 50% no-repeat;
+  background: url('images/site/cb-ed-smiley-2.jpg') 50% no-repeat;
   background-size: cover;
   border: 2px solid #000000;
   height: 150px;
@@ -82,7 +82,7 @@ p {
   font-weight: bold;
 }
 
-.homepage-navigation-row .is-active:after {
+.homepage-navigation-row .is-active::after {
   content: "";
   width: 70%;
   height: 2px;
@@ -101,7 +101,16 @@ p {
 }
 
 .mdl-mini-footer {
-    width: 100%;
+  text-align: center;
+  max-width: 900px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  text-transform: uppercase;
+  height: 25px
+}
+
+.mdl-mini-footer__link-list {
+  text-align: center;
 }
 
 .homepage-content-container {
@@ -113,18 +122,6 @@ p {
 
 .homepage-card .mdl-card__title {
   padding-bottom: 0;
-}
-
-.homepage-blog-card-full-bg {
-  background: url(images/example-blog03.jpg) center / cover;
-}
-
-.homepage-blog-card-event-bg {
-  background: url(images/example-blog05.jpg) center / cover;
-}
-
-.homepage-blog-card-strip-bg {
-  background: url(images/example-blog06.jpg) center / cover;
 }
 
 .homepage-blog-card-compact .mdl-card__title {
@@ -172,8 +169,8 @@ img.article-image {
         -ms-flex-align: center;
             align-items: center;
     box-sizing: border-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
+    /* display: -webkit-flex;
+    display: -ms-flexbox; */
     display: flex;
 }
 
@@ -184,11 +181,6 @@ img.article-image {
 .homepage-contact form {
   max-width: 550px;
   margin: auto;
-}
-
-footer {
-  background-image: url(images/footer-background.png);
-  background-size: cover;
 }
 
 .mdl-button > .material-icons {
