@@ -7,7 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 - A contact form base on [WTF-Flask](https://flask-wtf.readthedocs.io/en/stable/)  
 - Visitor comment forms on the `post` resources.  
+- Test suite for the email validations; integration with CI?  
   
+
+## [0.0.3] - 2017-10-7
+### Added
+- New static resources.  
+
+### Changed
+- Updates to many minor UI 'glitches'.  
+- Restyling of external links.  
+- Fixed odd blockquote behavior in MDL using overrides.  
+
 ## [0.0.2] - 2017-08-05
 ### Added
 - A changelog!  
