@@ -137,10 +137,26 @@ blockquote::after {
 }
 
 .homepage-content-container {
-    border: 2px solid rgba(0, 0, 0, 0.08);
     width: 100%;
     margin-top: 15px;
     margin-bottom: 15px;
+}
+
+.contact-content-container {
+  width: 100%;
+  height: 500px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.contact-form-container {
+  width: 100%;
+  height: 500px;
+  margin: 10px;
+}
+
+.mdl-textfield.mdl-js-textfield.msg-body {
+  width: 100%;
 }
 
 .homepage-card .mdl-card__title {

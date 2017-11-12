@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 views.py
 
@@ -10,15 +11,24 @@ from operator import itemgetter
 import json
 
 from flask import render_template
-import markdown
-from markdown import markdown, Markdown
+from flask import request
+from flask import flash
+
+# import markdown
+# from markdown import markdown, Markdown
+
 import jinja2
+from flask_wtf.csrf import CSRFProtect
 
-from src import application
+from mistune import markdown
+
+from src.app import application
+
 from src.utils import extos
+from src.forms import ContactForm
 
 
-MD = Markdown(application, extensions=['fenced_code'])
+# MD = Markdown(application, extensions=['fenced_code'])
 TOP_LEVEL_DIR = (os.path.abspath(__file__) + '../')
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
 
@@ -30,11 +40,17 @@ def markd_jinja(text, *args, **kwargs):
     """
     Renders HTML content from a string.
     """
-    return markdown(text, *args, **kwargs)
+    # return markdown(text, *args, **kwargs)
+    return markdown(text, escape=True)
 
+TE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
+JINJA_ENV = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATE_DIR),
+                               autoescape=True)
 
 JINJA_ENV.filters['markdown'] = markd_jinja
 application.jinja_env = JINJA_ENV
+CSRF = CSRFProtect(application)
+CSRF.init_app(application)
 
 
 @application.route('/', methods=['GET'])
@@ -221,9 +237,21 @@ def contact():
     """
     Endpoint for retrieving 'contact' section infomation.
     """
+    contact_f = ContactForm()
     data = extos.load_json_file(os.path.abspath('instance/data.json'))
+
     contact_data = data['contact']
 
     return render_template("contact.html",
                            title="Talk to the mounds",
+                           form=contact_f,
+                           action=flash("Yay, you submitted a form and it passed validations!"),
                            content=contact_data)
+
+@application.route('/message', methods=['POST'])
+def message():
+    """
+    Endpoint to receive application messages, including contact form
+    submissions and comments on blog posts.
+    """
+
