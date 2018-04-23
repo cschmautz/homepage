@@ -20,29 +20,29 @@
     {{ content|markdown|safe }}
     <div class="mdl-grid homepage-max-width">
             <form action="#" class="contact-form-container">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="mail-topic">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label msg-topic">
+                    <input class="mdl-textfield__input" type="text" id="mail-subject" pattern="[A-Z,a-z, ]*">
                     <label class="mdl-textfield__label" for="mail-topic">Message subject</label>
+                    <span class="mdl-textfield__error">Letters and spaces only</span>
                 </div>
                 <br>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="email" id="mail-callback">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label msg-email">
+                    <input class="mdl-textfield__input" type="email" id="mail-email" pattern="([a-zA-Z0-9-.]+|[.+_]+)@([a-zA-Z0-9-.]*[.][a-zA-Z0-9-.]*){1,8}">
                     <label class="mdl-textfield__label" for="mail-callback">Email to reach you at</label>
+                    <span class="mdl-textfield__error">Incorrect email format</span>
                 </div>
                 <br>
+                <!-- javascript regex: pattern="^([A-Za-z\,\;\'\s\.\?\!]*\s*[A-Za-z\,\;\'\s\.\?\!]*)$" -->
                 <div class="mdl-textfield mdl-js-textfield msg-body">
-                    <textarea class="mdl-textfield__input" type="text" rows= "10" id="mail-body"></textarea>
+                    <textarea class="mdl-textfield__input" rows= "10" id="mail-content" maxrows="10" onkeyup="this.value=this.value.replace(/[&:;@#$%{}+=|\\/^*<>\[\]]/g, '')"></textarea>
                     <label class="mdl-textfield__label" for="mail-body">Message to mounds</label>
+                    <span class="mdl-textfield__error">Incorrect content characters; markdown characters only please.</span>
                 </div>
-                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
-                 onsubmit="cs_homepage.utils.submitMessage({{ csrf }})" type="submit">Send</button>
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect msg-submit"
+                        onclick="cs_homepage.utils.submitEmailMessage('{{ csrf_token() }}');" type="button">
+                        Send
+                </button>
             </form>
     </div>
-
-    <form action="{{ action }}" method="POST" name="contact">
-        <p>
-            <!-- <button type="submit" name="action" value="submit" onClick="demoRequest()">Submit</button> -->
-        </p>
-    </form>
 </div>
 {% endblock %}

@@ -16,5 +16,7 @@
 </nav>
 {% endblock %}
 {% block content %}
-    {{ content|markdown|safe }}
+    <div class="mdl-grid blog-post-content-container">
+        {{ content|markdown|safe }}
+    </div>
 {% endblock %}

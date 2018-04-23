@@ -8,11 +8,8 @@ import unittest
 import sys
 import os
 
-TOP_LEVEL_DIR = os.path.abspath(os.path.dirname(__file__) + '/..')
-sys.path.insert(0, TOP_LEVEL_DIR)
-
-import forms_tc
-import utils.commext_tc as commext_tc
+import src.test.forms_tc as forms_tc
+import src.test.utils.commext_tc as commext_tc
 
 def suite():
     """

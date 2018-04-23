@@ -4,9 +4,16 @@ forms_tc.py
 Test case class for the forms module.
 """
 
+
+import os
+import sys
+
+if __name__ == '__main__':
+    sys.path.insert(0, os.path.abspath(os.path.dirname(__file__) + '../../../'))
+
 import unittest
 import test
-from src import forms
+from src.app import forms
 
 
 class FormsTestCase(unittest.TestCase):
@@ -140,6 +147,133 @@ class FormsTestCase(unittest.TestCase):
         ex_e3 = "j1.judo@[::1]"
         self.assertTrue(forms.is_message_email_valid(ex_e3),
                         msg="IPv6 address regex for domain did not pass!")
+
+    # begin Microsoft recommended test cases
+    # https://blogs.msdn.microsoft.com/testing123/2009/02/06/email-address-test-cases/
+    def test_emails_ms_valid(self):
+        """
+        Tests that should pass validations.
+        """
+        ex_e1 = "email@domain.com"
+        self.assertTrue(forms.is_message_email_valid(ex_e1),
+                        msg="Basic email regex did not pass!")
+
+        ex_e2 = "firstname.lastname@domain.com"
+        self.assertTrue(forms.is_message_email_valid(ex_e2),
+                        msg="Email contains dot in the address field")
+
+        ex_e3 = "email@subdomain.domain.com"
+        self.assertTrue(forms.is_message_email_valid(ex_e3),
+                        msg="Email contains dot with subdomain")
+
+        ex_e4 = "firstname+lastname@domain.com"
+        self.assertTrue(forms.is_message_email_valid(ex_e4),
+                        msg="Plus sign is considered valid character")
+
+        ex_e5 = "email@123.123.123.123"
+        self.assertTrue(forms.is_message_email_valid(ex_e5),
+                        msg="Domain is valid IP address")
+
+        ex_e6 = "email@[123.123.123.123]"
+        self.assertTrue(forms.is_message_email_valid(ex_e6),
+                        msg="Square bracket around IP address is considered valid")
+
+        ex_e7 = "\"email\"@domain.com"
+        self.assertTrue(forms.is_message_email_valid(ex_e7),
+                        msg="Quotes around email is considered valid")
+
+        ex_e8 = "1234567890@domain.com"
+        self.assertTrue(forms.is_message_email_valid(ex_e8),
+                        msg="Digits in address are valid")
+
+        ex_e9 = "email@domain-one.com"
+        self.assertTrue(forms.is_message_email_valid(ex_e9),
+                        msg="Dash in domain name is valid")
+
+        ex_e10 = "_______@domain.com"
+        self.assertTrue(forms.is_message_email_valid(ex_e10),
+                        msg="Underscore in the address field is valid")
+
+        ex_e11 = "email@domain.name"
+        self.assertTrue(forms.is_message_email_valid(ex_e11),
+                        msg=".name is valid Top Level Domain name")
+
+        ex_e12 = "email@domain.co.jp"
+        self.assertTrue(forms.is_message_email_valid(ex_e12),
+                        msg="Dot in Top Level Domain name is valid")
+
+        ex_e13 = "firstname-lastname@domain.com"
+        self.assertTrue(forms.is_message_email_valid(ex_e13),
+                        msg="Dash in address field is valid")
+
+        ex_e14 = "\'john..doe\'@domain.com"
+        self.assertTrue(forms.is_message_email_valid(ex_e14),
+                        msg="Double dots in quotes is valid")
+
+    def test_emails_ms_invalid(self):
+        """
+        Tests that should fail validations.
+        """
+        ex_e1 = "plainaddress"
+        self.assertFalse(forms.is_message_email_valid(ex_e1),
+                         msg="Missing @ sign and domain")
+
+        ex_e2 = "#@%^%#$@#$@#.com"
+        self.assertFalse(forms.is_message_email_valid(ex_e2),
+                         msg="Garbage")
+
+        ex_e3 = "@domain.com"
+        self.assertFalse(forms.is_message_email_valid(ex_e3),
+                         msg="Missing username")
+
+        ex_e4 = "Joe Smith <email@domain.com>"
+        self.assertFalse(forms.is_message_email_valid(ex_e4),
+                         msg="Encoded html within email is invalid")
+
+        ex_e5 = "email.domain.com"
+        self.assertFalse(forms.is_message_email_valid(ex_e5),
+                         msg="Missing @")
+
+        ex_e6 = "email@domain@domain.com"
+        self.assertFalse(forms.is_message_email_valid(ex_e6),
+                         msg="Two @ sign")
+
+        ex_e7 = ".email@domain.com"
+        self.assertFalse(forms.is_message_email_valid(ex_e7),
+                         msg="Leading dot in address is not allowed")
+
+        ex_e8 = "email.@domain.com"
+        self.assertFalse(forms.is_message_email_valid(ex_e8),
+                         msg="Trailing dot in address is not allowed")
+
+        ex_e9 = "email..email@domain.com"
+        self.assertFalse(forms.is_message_email_valid(ex_e9),
+                         msg="Multiple dots")
+
+        ex_e10 = "あいうえお@domain.com"
+        self.assertFalse(forms.is_message_email_valid(ex_e10),
+                         msg="Unicode char as address")
+
+        ex_e11 = "email@domain.com (Joe Smith)"
+        self.assertFalse(forms.is_message_email_valid(ex_e11),
+                         msg="Text followed email is not allowed")
+
+        ex_e12 = "email@domain"
+        self.assertFalse(forms.is_message_email_valid(ex_e12),
+                         msg="Missing top level domain (.com/.net/.org/etc)")
+
+        ex_e13 = "email@-domain.com"
+        self.assertFalse(forms.is_message_email_valid(ex_e13),
+                         msg="Leading dash in front of domain is invalid")
+
+        ex_e14 = "email@domain-.com"
+        self.assertFalse(forms.is_message_email_valid(ex_e14),
+                         msg="Trailing dash in domain is invalid")
+
+        ex_e15 = "email@domain..com"
+        self.assertFalse(forms.is_message_email_valid(ex_e15),
+                         msg="Multiple dot in the domain portion is invalid")
+
 
 
 if __name__ == '__main__':

@@ -10,7 +10,7 @@ import json
 import logging
 
 
-def load_json_file(json_file):
+def load_json_file(json_file: str) -> dict:
     """
     JSON file loader.
 
@@ -43,7 +43,7 @@ def load_json_file(json_file):
                              str(err))
 
 
-def write_json_to_file(python_obj, output_path):
+def write_json_to_file(python_obj: object, output_path: str):
     """
     Take a python object and output it into a JSON file format.
 

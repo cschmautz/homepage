@@ -14,7 +14,7 @@ from wtforms.fields import TextAreaField, SubmitField, SelectField
 MARKDOWN = re.compile(r'[a-z]|[A-Z]|[\!\.\?\,\:\;\'\[\]\*\-\~\(\)\`\/\#\_]|\s')
 
 
-def is_message_body_valid(body: str):
+def is_message_body_valid(body: str) -> bool:
     """
     Validates the input body for characters.
 
@@ -29,7 +29,7 @@ def is_message_body_valid(body: str):
     return True
 
 
-def is_message_title_valid(title: str):
+def is_message_title_valid(title: str) -> bool:
     """
     Validates the input title for characters.
 
@@ -44,7 +44,7 @@ def is_message_title_valid(title: str):
     return True
 
 
-def is_message_email_valid(email: str):
+def is_message_email_valid(email: str) -> bool:
     """
     Validates the input email for characters. The idea is to implement the 80%
     of rules which make up the specification for emails, for 'local-part'
@@ -59,6 +59,12 @@ def is_message_email_valid(email: str):
     Returns:
         bool: True/False whether or not the validation succeeded.
     """
+
+    # handle any members of \s for the whole email; early fail
+    if re.search('[ \t\n\r\f\v]', str(email)):
+        return False
+
+    # handle multiple '@' appearances
     em_bits = email.split('@')
     if len(em_bits) != 2:
         return False
@@ -66,8 +72,13 @@ def is_message_email_valid(email: str):
     local = em_bits[0]
     domain = em_bits[1]
 
-    spc_c = r'[.+_]'
-    ldh = r'[a-zA-Z0-9-.]'
+    dbl_dt = r'^[^"\'].+[.][.].+[^"\']$'
+    bad_dt_ld = r'^[.]+.*'
+    bad_dt_nd = r'.*[.]+$'
+    bad_hy_ld = r'^[-]+.*'
+    bad_hy_nd = r'.*[-][.].*'
+    spc_c = r'["!#$%&\'*+/=?^_`{|}~-]'
+    ldh = r'[a-zA-Z0-9.-]'
 
     hx_c = r'[a-f0-9]{0,4}'
     cln_c0 = r'[:]{0,2}'
@@ -84,14 +95,46 @@ def is_message_email_valid(email: str):
                                                        s5=ipv6_rg)
 
     local_pt = re.compile(r'{s0}+|{s1}+'.format(s0=ldh, s1=spc_c))
+    re_dbl_dt = re.compile(dbl_dt)
+    local_pt_dt_ld = re.compile(bad_dt_ld)
+    local_pt_dt_nd = re.compile(bad_dt_nd)
+    dm_pt_hy_ld = re.compile(bad_hy_ld)
+    dm_pt_hy_nd = re.compile(bad_hy_nd)
     dm_ipv4 = re.compile(ipv4_re)
     dm_ipv6 = re.compile(ipv6_re)
     dm_dtcm = re.compile(dtcm_re)
 
+    # handle empty values
+    if not local or not domain:
+        return False
+
+    # check for awkward local double dot '..' edge cases up front
+    if re_dbl_dt.search(str(local)) is not None:
+        return False
+
+    # check for leading or trailing dots in local that are invalid
+    if local_pt_dt_ld.search(str(local)) is not None:
+        return False
+    if local_pt_dt_nd.search(str(local)) is not None:
+        return False
+
+    # check each character in 'local' against the char whitelist
     for char in local:
         if local_pt.search(str(char)) is None:
             return False
 
+    # check for awkward domain double dot '..' edge cases up front
+    if re_dbl_dt.search(str(domain)) is not None:
+        return False
+
+    # check for leading or trailing hyphens in domain that are invalid
+    if dm_pt_hy_ld.search(str(domain)) is not None:
+        return False
+    if dm_pt_hy_nd.search(str(domain)) is not None:
+        print(str(dm_pt_hy_nd.search(str(domain))))
+        return False
+
+    # check 'domain' for possible ipv4, ipv6, and domain formats
     if(dm_ipv4.match(str(domain)) is None and
        dm_ipv6.match(str(domain)) is None and
        dm_dtcm.match(str(domain)) is None):
