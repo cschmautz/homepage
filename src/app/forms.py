@@ -5,10 +5,8 @@ Module for forms that are in use on the homepage, including the contact section
 as well as the comments section for blog posts.
 """
 
-import re
 
-from flask_wtf import FlaskForm
-from wtforms.fields import TextAreaField, SubmitField, SelectField
+import re
 
 
 MARKDOWN = re.compile(r'[a-z]|[A-Z]|[\!\.\?\,\:\;\'\[\]\*\-\~\(\)\`\/\#\_]|\s')
@@ -141,18 +139,3 @@ def is_message_email_valid(email: str) -> bool:
         return False
 
     return True
-
-
-class ContactForm(FlaskForm):
-    """
-    For contacting me.
-    """
-    topic = SelectField(label="Topic",
-                        choices=[('techq', 'Technical Question'),
-                                 ('genq', 'General Question'),
-                                 ('jobopp', 'Job opportunity'),
-                                 ('contractw', 'Contract work'),
-                                 ('salud', 'Friendly "hello!"')])
-
-    body = TextAreaField(label="Content")
-    submit = SubmitField(label="Submit")

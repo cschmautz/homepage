@@ -5,12 +5,24 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
   
 ## [Unreleased]
-- A contact form base on [WTF-Flask](https://flask-wtf.readthedocs.io/en/stable/)  
-- Visitor comment forms on the `post` resources.  
-- Test suite for the email validations; integration with CI?  
+- Visitor comment forms on the `post` resources (coming soon!)  
+- Conversion to Material Components for the Web (migrate from MDL Lite)  
   
 
-## [0.0.3] - 2017-10-7
+## [0.0.4] - 2018-05-06
+### Added
+- New content, woo!  
+- New static resources  
+- New messaging functionality  
+- New markdown parser dependency (markdown, old, versus mistune, new)  
+- Revamped repository structure, modernized  
+- Test suite for ridiculous email validation (open an issue for any nonconformancy)  
+  
+### Changed
+- A whole lot  
+- CSS fixes to a majority of the site; responsiveness can be hard  
+  
+## [0.0.3] - 2017-10-07
 ### Added
 - New static resources.  
 
