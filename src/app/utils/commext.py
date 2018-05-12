@@ -10,9 +10,12 @@ from email import message
 
 from ...instance import config
 
-
-GUSER = config.GMAIL_SMTP_USER
-GPASSWORD = config.GMAIL_SMTP_KEY
+try:
+    GUSER = config.GMAIL_SMTP_USER
+    GPASSWORD = config.GMAIL_SMTP_KEY
+except AttributeError: # set reasonable defaults for testsuite
+    GUSER = ''
+    GPASSWORD = ''
 
 
 def gmail_login(user: str = GUSER, password: str = GPASSWORD):

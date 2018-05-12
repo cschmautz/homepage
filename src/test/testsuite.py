@@ -8,6 +8,9 @@ import unittest
 import sys
 import os
 
+if __name__ == '__main__':
+    sys.path.insert(0, os.path.abspath(os.path.dirname(__file__) + '../../../'))
+
 import src.test.forms_tc as forms_tc
 import src.test.utils.commext_tc as commext_tc
 
