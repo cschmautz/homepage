@@ -11,15 +11,12 @@ from email import message
 try:
     from ...instance import config
 except ImportError:
-    pass # should only happen in remote testsuite
+    config = {} # should only happen in remote testsuite
+    config.GMAIL_SMTP_USER = '' # reasonable default for testsuite
+    config.GMAIL_SMTP_KEY = '' # reasonable default for testsuite
 
-try:
-    GUSER = config.GMAIL_SMTP_USER
-    GPASSWORD = config.GMAIL_SMTP_KEY
-except AttributeError: # set reasonable defaults for testsuite
-    GUSER = ''
-    GPASSWORD = ''
-
+GUSER = config.GMAIL_SMTP_USER
+GPASSWORD = config.GMAIL_SMTP_KEY
 
 def gmail_login(user: str = GUSER, password: str = GPASSWORD):
     """
