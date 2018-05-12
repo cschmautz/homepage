@@ -8,7 +8,10 @@ import sys
 import smtplib
 from email import message
 
-from ...instance import config
+try:
+    from ...instance import config
+except ImportError:
+    pass # should only happen in remote testsuite
 
 try:
     GUSER = config.GMAIL_SMTP_USER
