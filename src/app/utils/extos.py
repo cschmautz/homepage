@@ -34,7 +34,7 @@ def load_json_file(json_file: str) -> dict:
                 logging.warn("Something went wrong loading JSON file: " +
                              str(err))
 
-    elif '3.5' in python_version:
+    else:
         with io.open(json_file, mode='r') as input_file:
             try:
                 return json.load(input_file)

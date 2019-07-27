@@ -5,6 +5,7 @@ itsdangerous==0.24
 Jinja2==2.9.6
 Markdown==2.6.8
 MarkupSafe==1.0
-mistune==0.8.1
+mistletoe==0.7.1
+Pygments==2.3.1
 Werkzeug==0.12.2
 WTForms==2.1

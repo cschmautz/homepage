@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block navigation_big %}
 <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
-    <a class="mdl-navigation__link" href="/portfolio">Portfolio</a>
+    <a class="mdl-navigation__link" href="/projects">Projects</a>
     <a class="mdl-navigation__link is-active" href="/blog">Blog</a>
     <a class="mdl-navigation__link" href="/about">About</a>
     <a class="mdl-navigation__link" href="/contact">Contact</a>
@@ -9,7 +9,7 @@
 {% endblock %}
 {% block navigation_small %}
 <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
-    <a class="mdl-navigation__link" href="/portfolio">Portfolio</a>
+    <a class="mdl-navigation__link" href="/projects">Projects</a>
     <a class="mdl-navigation__link is-active" href="/blog">Blog</a>
     <a class="mdl-navigation__link" href="/about">About</a>
     <a class="mdl-navigation__link" href="/contact">Contact</a>
@@ -20,12 +20,12 @@
     <div class="mdl-grid homepage-max-width">
         {% for card in cards %}
             {% if loop.index0 == 0 %}
-            <div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
+            <div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--2dp">
                 <div class="mdl-card__media mdl-cell mdl-cell--12-col-tablet">
                     <a href={{ card.hLink }}><img class="article-image" src={{ card.image }} border="0" alt=""></a>
                 </div>
                 <div class="mdl-cell mdl-cell--8-col">
-                    <h2 class="mdl-card__title-text">{{ card.title}}</a></h2>
+                    <a href={{ card.hLink }}><h2 class="mdl-card__title-text">{{ card.title}}</h2></a>
                     <div class="mdl-card__support-text padding-top">
                         <span>{{ card.postDate }}</span>
                     </div>
@@ -35,9 +35,9 @@
                 </div>
             </div>
             {% elif loop.index0 == 1 %}
-            <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
+            <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-card mdl-shadow--2dp">
                 <div class="mdl-card__title">
-                    <h2 class="mdl-card__title-text">{{ card.title}}</h2>
+                    <a href={{ card.hLink }}><h2 class="mdl-card__title-text">{{ card.title}}</h2></a>
                 </div>
                 <div class="mdl-card__media">
                     <a href={{ card.hLink }}> <img class="article-image" src={{ card.image }} border="0" alt=""></a>
@@ -50,9 +50,9 @@
                 </div>
             </div>
             {% elif loop.index0 == 2 %}
-            <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
+            <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-card mdl-shadow--2dp">
                 <div class="mdl-card__title">
-                    <h2 class="mdl-card__title-text">{{ card.title}}</h2>
+                    <a href={{ card.hLink }}><h2 class="mdl-card__title-text">{{ card.title}}</h2></a>
                 </div>
                 <div class="mdl-card__media">
                     <a href={{ card.hLink }}> <img class="article-image" src={{ card.image }} border="0" alt=""></a>
@@ -65,9 +65,9 @@
                 </div>
             </div>
             {% elif loop.index0 == 3 %}
-            <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
+            <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-card mdl-shadow--2dp">
                 <div class="mdl-card__title">
-                    <h2 class="mdl-card__title-text">{{ card.title}}</h2>
+                    <a href={{ card.hLink }}><h2 class="mdl-card__title-text">{{ card.title}}</h2></a>
                 </div>
                 <div class="mdl-card__media">
                     <a href={{ card.hLink }}> <img class="article-image" src={{ card.image }} border="0" alt=""></a>
@@ -80,9 +80,9 @@
                 </div>
             </div>
             {% elif loop.index0 == 4 %}
-            <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
+            <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-card mdl-shadow--2dp">
                 <div class="mdl-card__title">
-                    <h2 class="mdl-card__title-text">{{ card.title}}</h2>
+                    <a href={{ card.hLink }}><h2 class="mdl-card__title-text">{{ card.title}}</h2></a>
                 </div>
                 <div class="mdl-card__media">
                     <a href={{ card.hLink }}> <img class="article-image" src={{ card.image }} border="0" alt=""></a>
@@ -95,9 +95,9 @@
                 </div>
             </div>
             {% elif loop.index0 == 5 %}
-            <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
+            <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-card mdl-shadow--2dp">
                 <div class="mdl-card__title">
-                    <h2 class="mdl-card__title-text">{{ card.title}}</h2>
+                    <a href={{ card.hLink }}><h2 class="mdl-card__title-text">{{ card.title}}</h2></a>
                 </div>
                 <div class="mdl-card__media">
                     <a href={{ card.hLink }}> <img class="article-image" src={{ card.image }} border="0" alt=""></a>
@@ -110,12 +110,12 @@
                 </div>
             </div>
             {% elif loop.index0 == 6 %}
-            <div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
+            <div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--2dp">
                 <div class="mdl-card__media mdl-cell mdl-cell--12-col-tablet">
                     <a href={{ card.hLink }}><img class="article-image" src={{ card.image }} border="0" alt=""></a>
                 </div>
                 <div class="mdl-cell mdl-cell--8-col">
-                    <h2 class="mdl-card__title-text">{{ card.title}}</a></h2>
+                    <a href={{ card.hLink }}><h2 class="mdl-card__title-text">{{ card.title}}</h2></a>
                     <div class="mdl-card__support-text padding-top">
                         <span>{{ card.postDate }}</span>
                     </div>

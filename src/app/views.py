@@ -6,33 +6,31 @@ Module to manage the different API endpoints for my homepage application.
 """
 
 
+import io
 import os
 from operator import itemgetter
 import json
 
+
+from flask import abort
 from flask import render_template
 from flask import request
-from flask import flash
-from flask import abort
 from flask import Response
-
-# import markdown
-# from markdown import markdown, Markdown
-
-import jinja2
-from flask_wtf.csrf import CSRFProtect
 import flask_wtf.csrf
+from flask_wtf.csrf import CSRFProtect
+import jinja2
+import mistletoe
+import pygments
 import wtforms.validators
-from mistune import markdown
+
 
 from src.app.application import application
-
+import src.app.forms as forms
 from src.app.utils import extos
 from src.app.utils import commext
-import src.app.forms as forms
+from src.app.utils.renderext import PygmentsRenderer
 
 
-# MD = Markdown(application, extensions=['fenced_code'])
 SRC_ROOT = os.path.abspath(os.path.dirname(__file__) + '../../')
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
 
@@ -44,8 +42,7 @@ def markd_jinja(text: str, *args, **kwargs) -> str:
     """
     Renders HTML content from a string.
     """
-    # return markdown(text, *args, **kwargs)
-    return markdown(text, escape=True)
+    return mistletoe.markdown(text, renderer=PygmentsRenderer)
 
 
 JINJA_ENV.filters['markdown'] = markd_jinja
@@ -54,60 +51,23 @@ CSRF = CSRFProtect(application)
 CSRF.init_app(application)
 
 
-@application.route('/', methods=['GET'])
-def base():
-    """
-    Base route that should take the user to the portfolio home page.
-    """
-    data = extos.load_json_file(os.path.abspath('src/instance/data.json'))
-    cards = [x for x in data['posts']
-             if x['type'] == 'portfolio']
-
-    if not cards:
-        cards = []
-    else:
-        for entry in cards:
-            entry['postDate'] = entry['postDate'][:10]
-
-        cards = sorted(cards, key=itemgetter('id'), reverse=True)
-
-    return render_template("portfolio.html",
-                           title="mounds makes",
-                           cards=cards)
-
-
 @application.route('/index', methods=['GET'])
 def index():
     """
-    Base route that should take the user to the portfolio home page.
+    Need to implement a better colophon / index.
+    """
+    projects()
+
+
+@application.route('/', methods=['GET'])
+@application.route('/projects', methods=['GET'])
+def projects():
+    """
+    Main route to serve up the 'projects' section of the site.
     """
     data = extos.load_json_file(os.path.abspath('src/instance/data.json'))
     cards = [x for x in data['posts']
-             if x['type'] == 'portfolio']
-
-    if not cards:
-        cards = []
-    else:
-        for entry in cards:
-            entry['postDate'] = entry['postDate'][:10]
-
-        cards = sorted(cards,
-                       key=itemgetter('id'),
-                       reverse=True)
-
-    return render_template("portfolio.html",
-                           title="mounds makes",
-                           cards=cards)
-
-
-@application.route('/portfolio', methods=['GET'])
-def portfolio():
-    """
-    Main route to serve up the 'portfolio' section of the site.
-    """
-    data = extos.load_json_file(os.path.abspath('src/instance/data.json'))
-    cards = [x for x in data['posts']
-             if x['type'] == 'portfolio']
+             if x['type'] == 'project']
 
     if not cards:
         cards = []
@@ -117,27 +77,27 @@ def portfolio():
 
         cards = sorted(cards, key=itemgetter('id'), reverse=True)
 
-    return render_template("portfolio.html",
+    return render_template("projects.html",
                            title="mounds makes",
                            cards=cards)
 
 
-@application.route('/portfolio/posts', methods=['GET'])
+@application.route('/projects/posts', methods=['GET'])
 def portfolio_posts():
     """
-    Main route to serve up the 'portfolio' section of the site.
+    Main route to serve up the 'project' section of the site.
     """
     data = extos.load_json_file(os.path.abspath('src/instance/data.json'))
     portfolio_data = [x for x in data['posts']
-                      if x['type'] == 'portfolio']
+                      if x['type'] == 'projects']
 
     return json.dumps(portfolio_data)
 
 
-@application.route('/portfolio/posts/<int:post>', methods=['GET'])
+@application.route('/projects/posts/<int:post>', methods=['GET'])
 def portfolio_post(post=None):
     """
-    Used to provide the specific pages for a portfolio entry. This will
+    Used to provide the specific pages for a project entry. This will
     have posts in line with the posts in the blog area, however, they will
     be differentiated by a 'type' attribute, designating their role.
 
@@ -147,17 +107,17 @@ def portfolio_post(post=None):
     """
     data = extos.load_json_file(os.path.abspath('src/instance/data.json'))
     post_data = [x for x in data['posts']
-                 if x['type'] == 'portfolio' and
+                 if x['type'] == 'project' and
                  x['id'] == post]
 
     if post_data:
         post_data = post_data[0]
         post_data['postDate'] = post_data['postDate'][:10]
     else:
-        post_data = {'content': 'No portfolio entry found for that post id!',
+        post_data = {'content': 'No project entry found for that post id!',
                      'title': 'Content not found'}
 
-    return render_template("portfolio_post.html",
+    return render_template("projects_post.html",
                            title=post_data['title'],
                            content=post_data['content'])
 
@@ -246,6 +206,7 @@ def contact():
                            title="Talk to the mounds",
                            content=contact_data)
 
+
 @application.route('/message', methods=['POST'])
 def message():
     """
@@ -288,7 +249,23 @@ def message():
 
             return Response(response="Message sent successfully", status=200)
 
+        # Future enhancement, comments?
         return Response(response="Invalid message type", status=400)
 
     return Response(response="Something went wrong processing the request",
                     status=500)
+
+
+@application.route('/mdl', methods=['GET'])
+def mdl():
+    """
+    Endpoint to reach 'archived' Material Design Lite documentation, in the case
+    of deletion by Google.
+
+    All rights reserved by Google for the content.
+    """
+    content = ""
+    with io.open(os.path.abspath(SRC_ROOT + '/app/static/mdl.md'), mode='r') as f:
+        content = f.read()
+
+    return render_template("mdl.html", content=content)
