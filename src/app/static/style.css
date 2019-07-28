@@ -266,6 +266,7 @@ td {
 }
 
 img.article-image {
+  background-color: #eee;
   width: 100%;
   height: auto;
 }
