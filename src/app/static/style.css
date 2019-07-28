@@ -24,7 +24,7 @@ h4 {
 }
 
 a {
-  color:rgb(244, 67, 54);
+  color:rgb(244, 67, 54) !important;
 }
 
 blockquote {
@@ -271,7 +271,7 @@ img.article-image {
 }
 
 .mdl-card__media {
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(255, 255, 255) !important;
   padding: 10px;
 }
 
