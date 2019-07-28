@@ -65,7 +65,7 @@ def projects():
     """
     Main route to serve up the 'projects' section of the site.
     """
-    data = extos.load_json_file(os.path.abspath('src/instance/data.json'))
+    data = extos.load_json_file(os.path.abspath('instance/data.json'))
     cards = [x for x in data['posts']
              if x['type'] == 'project']
 
@@ -87,7 +87,7 @@ def portfolio_posts():
     """
     Main route to serve up the 'project' section of the site.
     """
-    data = extos.load_json_file(os.path.abspath('src/instance/data.json'))
+    data = extos.load_json_file(os.path.abspath('instance/data.json'))
     portfolio_data = [x for x in data['posts']
                       if x['type'] == 'projects']
 
@@ -105,7 +105,7 @@ def portfolio_post(post=None):
     used to filter the returned list. Since each post is unique, it will
     run from oldest to newest based on the index of the 'id'.
     """
-    data = extos.load_json_file(os.path.abspath('src/instance/data.json'))
+    data = extos.load_json_file(os.path.abspath('instance/data.json'))
     post_data = [x for x in data['posts']
                  if x['type'] == 'project' and
                  x['id'] == post]
@@ -127,7 +127,7 @@ def blog():
     """
     Endpoint to return the blog dashboard with the most recent posts.
     """
-    data = extos.load_json_file(os.path.abspath('src/instance/data.json'))
+    data = extos.load_json_file(os.path.abspath('instance/data.json'))
     cards = [x for x in data['posts']
              if x['type'] == 'blog']
 
@@ -152,7 +152,7 @@ def blog_posts():
     Endpoint to serve up all the posts which reside on the server, or insert
     a new post if the right secret is given to the endpoint (future state).
     """
-    data = extos.load_json_file(os.path.abspath('src/instance/data.json'))
+    data = extos.load_json_file(os.path.abspath('instance/data.json'))
     posts_data = [x for x in data['posts']
                   if x['type'] == 'blog']
 
@@ -164,7 +164,7 @@ def blog_post(post):
     """ Endpoint that serves up a specific post which corresponds to the post
         'id' attribute. Similar to the portfolio post endpoint.
     """
-    data = extos.load_json_file(os.path.abspath('src/instance/data.json'))
+    data = extos.load_json_file(os.path.abspath('instance/data.json'))
     post_data = [x for x in data['posts']
                  if x['type'] == 'blog' and
                  x['id'] == post]
@@ -185,7 +185,7 @@ def about():
     """
     Endpoint for retrieving 'about' section infomation.
     """
-    data = extos.load_json_file(os.path.abspath('src/instance/data.json'))
+    data = extos.load_json_file(os.path.abspath('instance/data.json'))
     about_data = data['about']
 
     return render_template("about.html",
@@ -198,7 +198,7 @@ def contact():
     """
     Endpoint for retrieving 'contact' section infomation.
     """
-    data = extos.load_json_file(os.path.abspath('src/instance/data.json'))
+    data = extos.load_json_file(os.path.abspath('instance/data.json'))
 
     contact_data = data['contact']
 
