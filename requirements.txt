@@ -6,6 +6,6 @@ Jinja2==2.10.1
 Markdown==2.6.8
 MarkupSafe==1.0
 mistletoe==0.7.1
-Pygments==2.3.1
+Pygments==2.7.4
 Werkzeug==0.15.5
 WTForms==2.1
